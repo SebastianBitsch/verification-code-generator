@@ -53,20 +53,22 @@ class WordGenerator:
         return chunk_dict
 
     def generate_word(self, N:int = 6) -> str:
-        # Generate a word
         chunks = list(self.chunk_dict.keys())
         
+        # Get random starting word from the chunks
         index = randint(0, len(chunks))
         start = chunks[index]
         word = start
 
         while len(word) < N:
             tail = word[-2:]
-            
+
+            # Look for words where the last two letters of the current word matches the two first in a given word            
             potential_words = [x for x in chunks if tail == x[:2]]
             probabilities = [self.chunk_dict[x] for x in potential_words]
 
+            # Chose the word to append weighted by the number of times it occurs in the text
             chosen_word = choices(population=potential_words, weights=probabilities, k=1)[0]
             word += chosen_word[-1]
 
-        return word
+        return word.capitalize()
