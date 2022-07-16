@@ -52,7 +52,12 @@ class WordGenerator:
         
         return chunk_dict
 
-    def generate_word(self, N:int = 6) -> str:
+
+    def generate_words(self, length:int = 6, N:int = 1):
+        return [self.generate_word(length=length) for _ in range(N)]
+
+
+    def generate_word(self, length:int = 6) -> str:
         chunks = list(self.chunk_dict.keys())
         
         # Get random starting word from the chunks
@@ -60,7 +65,7 @@ class WordGenerator:
         start = chunks[index]
         word = start
 
-        while len(word) < N:
+        while len(word) < length:
             tail = word[-2:]
 
             # Look for words where the last two letters of the current word matches the two first in a given word            
