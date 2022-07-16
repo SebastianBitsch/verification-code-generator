@@ -17,7 +17,15 @@ class WordGenerator:
         self.chunk_dict = self.__generate_chunks(self.clean_text)
         
 
-    def __clean_text(self, raw_text:str) -> None:
+    def __clean_text(self, raw_text:str) -> str:
+        """
+        Given a text this functions cleans it, removing all non alphabet characters and converting to lowercase
+        
+        Parameters
+        ----------
+            raw_text: str
+                the text to be cleaned
+        """
         # Legal characters include the alphabet, spaces and hyphos
         legal_chars = ascii_letters+ " " + "-" + "—" # apparently there are two different types of - idk
 
@@ -37,6 +45,16 @@ class WordGenerator:
 
 
     def __generate_chunks(self, text:str) -> dict:
+        """ 
+        Given a text this function splits the text into words and generates a dictionary of all unique 
+        3-letter chunks of letters with the key being the chunk and the count the value.
+        Note that all two letter words are removed.
+
+        Parameters
+        ----------
+            text: str,
+                the text from where to generate the chunks
+        """
         # Remove two-letter words
         all_words = text.split()
         all_words = [x for x in all_words if 2 < len(x)]
@@ -53,11 +71,30 @@ class WordGenerator:
         return chunk_dict
 
 
-    def generate_words(self, length:int = 6, N:int = 1):
+    def generate_words(self, length:int = 6, N:int = 1) -> list[str]:
+        """ 
+        A function for generating and returning N words of a given length 
+
+        Parameters
+        ----------
+            length: int, optional
+                the length of the word to be generated
+
+            N: int, optional
+                the number of words to generate
+        """
         return [self.generate_word(length=length) for _ in range(N)]
 
 
     def generate_word(self, length:int = 6) -> str:
+        """ 
+        This function generates and returns a random word of a given length.
+
+        Parameters
+        ----------
+            length: int, optional
+                the length of the word to be generated
+        """
         chunks = list(self.chunk_dict.keys())
         
         # Get random starting word from the chunks

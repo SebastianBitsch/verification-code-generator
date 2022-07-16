@@ -2,6 +2,7 @@ from WordGenerator import WordGenerator
 
 if __name__ == "__main__":
 
-    wg = WordGenerator("data/pride_and_prejudice.txt")
+    # Read sample txt file 
+    wg = WordGenerator("data/moby_dick.txt")
 
-    print(wg.generate_words(N=20))
+    print(wg.generate_words(length=4,N=17*2))
