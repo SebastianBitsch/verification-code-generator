@@ -1,4 +1,5 @@
 from random import choices, randint
+from random import seed as set_seed
 from string import ascii_letters
 
 def read_txt(path:str, newline:str='\n') -> str:
@@ -9,8 +10,21 @@ def read_txt(path:str, newline:str='\n') -> str:
 
 class WordGenerator:
 
-    def __init__(self, path:str) -> None:
-        
+    def __init__(self, path:str, seed:int = None) -> None:
+        """
+        Class for making a WordGenerator. Takes a text for initialization and can thereafter generate words
+
+        Parameters
+        ----------
+            path: str
+                the path to the text file to use
+
+            seed, int, optional
+                if set it ensures reproducability of results
+        """
+        if seed:
+            set_seed(seed)
+
         self.path = path
         self.raw_text = read_txt(path)
         self.clean_text = self.__clean_text(self.raw_text)
